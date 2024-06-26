@@ -1,5 +1,7 @@
 # 🏆 Agenda de Clientes
 
+<img src="./assets/images/screenshot.png" alt="imagem do projeto">
+
 <br>
 
 ## 📎 Sumario
@@ -11,7 +13,7 @@
 <br>
 
 ## 📌 Resumo do Projeto
-Este Projeto consiste na criação de um plataforma de agenda de clientes, onde o usuário registrado, poderá acessar sua agenda cadastrar e editar clientes, anexar e editar endereços aos respectivos clientes
+Este Projeto foi desenvolvido como um teste para a empresa AgroSys, e consiste na criação de um plataforma de agenda de clientes, onde o usuário registrado, poderá acessar sua agenda cadastrar e editar clientes, anexar e editar endereços aos respectivos clientes
 
 <br>
 
