@@ -1,0 +1,149 @@
+:root {
+  /* Colors */
+  --text: #4e5b68;
+  --divider-border: #ccc;
+  --error-text: rgb(212, 46, 17);
+  --input-border: #ccc;
+  --input-bg: #fff;
+  --button-bg: #3fc3e4;
+  --button-text: inherit;
+
+  /* Spacing */
+  --default-padding: 0.5rem;
+  --default-margin: 1rem;
+  --form-gap: 1rem;
+  --list-gap: 1rem;
+
+  /* Typography */
+  --error-font-size: 0.8rem;
+
+  /* Border and Shapes */
+  --border-radius: 4px;
+  --divider-border-width: 1px;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #d0ccd1 transparent;
+}
+
+body {
+  font-family: "Montserrat";
+  background-color: rgba(79, 173, 200, 0.1);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 100, "opsz" 24;
+}
+
+#app {
+  max-width: 960px;
+  margin: auto;
+  padding: var(--default-margin);
+  background-color: rgba(204, 204, 204, 0.6);
+
+  #client-list {
+    list-style: none;
+    li {
+      background-color: rgba(240, 240, 240, 0.8);
+      list-style-type: none;
+      border-radius: var(--border-radius);
+    }
+  }
+}
+
+.divider {
+  border-bottom: var(--divider-border-width) solid var(--divider-border);
+  margin-top: var(--default-margin);
+}
+
+.gap {
+  display: flex;
+  gap: var(--list-gap);
+}
+
+.default-padding {
+  padding: var(--default-padding);
+}
+
+.btn {
+  background-color: var(--button-bg);
+}
+
+.error-message {
+  color: var(--error-text);
+  font-size: var(--error-font-size);
+  display: flex;
+  align-items: center;
+  gap: var(--default-margin);
+}
+
+form#form-add-client,
+form#form-edit-client,
+form#form-add-address,
+form#form-edit-address {
+  gap: var(--list-gap);
+  padding: var(--default-padding);
+  width: 100%;
+
+  input {
+    all: unset;
+    padding: var(--default-padding);
+    background-color: var(--input-bg);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--input-border);
+  }
+}
+
+.btn-client,
+.btn-address {
+  all: unset;
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  justify-content: center;
+  padding: 0.1rem;
+  background-color: transparent;
+  color: var(--button-text);
+  width: fit-content;
+  border-radius: var(--border-radius);
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+#form-add-client > div,
+#form-edit-client > div,
+#form-add-address > div,
+#form-edit-address > div {
+  input {
+    width: 100%;
+  }
+}
+
+.address-config-btn,
+.client-config-btn {
+  all: unset;
+}
+
+.address-table {
+  width: 100%;
+  th,
+  td,
+  tr {
+    border: none;
+  }
+  th {
+    font-weight: 500;
+  }
+}
+
+.scrollable-list {
+  max-height: 80vh;
+  overflow-y: auto;
+}
