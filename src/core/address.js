@@ -35,6 +35,11 @@ function addAddress(event) {
 
   if (!isFormValid) return;
 
+  const clientAddress = getAddressByClientDB(currentAddressClientIdEditing);
+  const validateDefaultAddress = clientAddress.filter(
+    (address) => address.default_address === true
+  );
+
   const result = addAddressDB({
     cep: cepInput.value,
     street: streetInput.value,
@@ -42,6 +47,7 @@ function addAddress(event) {
     city: cityInput.value,
     state: stateInput.value,
     country: countryInput.value,
+    default_address: validateDefaultAddress.length === 0 ? true : false,
     client_id: currentAddressClientIdEditing,
   });
 
@@ -234,6 +240,14 @@ function addressListTemplateBuilder(address) {
     const tdDeleteBtn = document.createElement("td");
     tdDeleteBtn.innerHTML = createDeleteBtnAddress(addressInfos.id);
 
+    const tdFavoriteBtn = document.createElement("td");
+    tdFavoriteBtn.innerHTML = createFavoriteBtnAddress(
+      addressInfos.id,
+      addressInfos.default_address,
+      addressInfos.client_id
+    );
+
+    tr.appendChild(tdFavoriteBtn);
     tr.appendChild(tdEditBtn);
     tr.appendChild(tdDeleteBtn);
     tbody.appendChild(tr);
@@ -316,4 +330,49 @@ function createDeleteBtnAddress(id) {
   button.appendChild(span);
 
   return button.outerHTML;
+}
+
+function createFavoriteBtnAddress(id, defaultAddress, clientId) {
+  const button = document.createElement("button");
+  button.className = "address-config-btn";
+  button.setAttribute("onclick", `favoriteAddress('${id}', '${clientId}')`);
+
+  const span = document.createElement("span");
+  span.className =
+    defaultAddress == true
+      ? "material-symbols-outlined text-primary"
+      : "material-symbols-outlined";
+  span.textContent = "star";
+
+  button.appendChild(span);
+
+  return button.outerHTML;
+}
+
+function favoriteAddress(id, clientId) {
+  const clientAddress = getAddressByClientDB(Number(clientId));
+
+  clientAddress.forEach((address) => {
+    if (address.default_address == true) {
+      editFavoriteAddressDB(false, address.id);
+    }
+  });
+
+  const result = editFavoriteAddressDB(true, Number(id));
+
+  if (result === 1) {
+    Swal.fire({
+      title: "Sucesso!",
+      text: "Endereço foi favoritado com sucesso!",
+      icon: "success",
+    });
+  } else {
+    Swal.fire({
+      title: "Ops!",
+      text: "Ocorreu um erro inesperado ao tentar favoritar endereço, tente novamente mais tarde.",
+      icon: "error",
+    });
+  }
+
+  clientListTemplateBuilder();
 }

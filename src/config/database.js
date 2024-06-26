@@ -28,6 +28,7 @@ function initializeDB() {
     city STRING,
     state STRING,
     country STRING,
+    default_address BOOLEAN,
     client_id STRING
   )`);
 }
@@ -95,11 +96,21 @@ function addAddressDB({
   city,
   state,
   country,
+  default_address,
   client_id,
 }) {
   return alasql(
-    "INSERT INTO address (cep, street, neighborhood, city, state, country, client_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
-    [cep, street, neighborhood, city, state, country, client_id]
+    "INSERT INTO address (cep, street, neighborhood, city, state, country, default_address, client_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+    [
+      cep,
+      street,
+      neighborhood,
+      city,
+      state,
+      country,
+      default_address,
+      client_id,
+    ]
   );
 }
 
@@ -110,12 +121,20 @@ function editAddressDB({
   city,
   state,
   country,
+  default_address,
   id,
 }) {
   return alasql(
-    "UPDATE address SET cep = ?, street = ?, neighborhood = ?, city = ?, state = ?, country = ? WHERE id = ?",
-    [cep, street, neighborhood, city, state, country, id]
+    "UPDATE address SET cep = ?, street = ?, neighborhood = ?, city = ?, state = ?, country = ?, default_address = ? WHERE id = ?",
+    [cep, street, neighborhood, city, state, country, default_address, id]
   );
+}
+
+function editFavoriteAddressDB(default_address, id) {
+  return alasql("UPDATE address SET default_address = ? WHERE id = ?", [
+    default_address,
+    id,
+  ]);
 }
 
 function deleteAddressDB(id) {
